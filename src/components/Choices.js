@@ -4,11 +4,10 @@ function Choices(props) {
   const { choices, setChoice } = props
   return (
     <>
-      {choices.map((choice, i) => (
-        <button key={i} onClick={() => setChoice(i)}>
-          {choice}
-        </button>
-      ))}
+      {Object.keys(choices).map((choice, i) => {
+        const Choice = choices[choice]
+        return <Choice key={i} onClick={() => setChoice(choice)} />
+      })}
     </>
   )
 }
