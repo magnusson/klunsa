@@ -1,12 +1,12 @@
 import React from 'react'
 
 function Choices(props) {
-  const { choices, setChoice } = props
+  const { types, handleChoice } = props
   return (
     <>
-      {Object.keys(choices).map((choice, i) => {
-        const Choice = choices[choice]
-        return <Choice key={i} onClick={() => setChoice(choice)} />
+      {Object.keys(types).map((choice, i) => {
+        const Choice = types[choice]
+        return <Choice key={i} onClick={() => handleChoice(choice)} />
       })}
     </>
   )

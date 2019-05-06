@@ -1,35 +1,50 @@
 import React, { useState, useEffect } from 'react'
 
 function Results(props) {
-  const { choices, choice, aiChoice } = props
+  const { types, choices, playerId } = props
   const [winner, setWinner] = useState(null)
+  const players = Object.keys(choices)
+  const playerOne = players[0]
+  const playerTwo = players[1]
   useEffect(() => {
-    const keys = Object.keys(choices)
-    const result = (3 + keys.indexOf(aiChoice) - keys.indexOf(choice)) % 3
+    const keys = Object.keys(types)
+    const result =
+      (3 +
+        keys.indexOf(choices[playerOne]) -
+        keys.indexOf(choices[playerTwo])) %
+      3
     if (result === 1) {
-      setWinner('you')
+      setWinner(playerOne)
     } else if (result === 2) {
-      setWinner('ai')
+      setWinner(playerTwo)
     } else {
       setWinner('tie')
     }
   }, [])
-  const PlayerChoice = choices[choice]
-  const AiChoice = choices[aiChoice]
+  const PlayerChoice = types[choices[playerOne]]
+  const AiChoice = types[choices[playerTwo]]
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div>
       {!winner ? (
         <p>Doing advanced math to find a winner</p>
       ) : (
-        <>
-          <h2 style={{ flex: '1 0 100%' }}>Winner: {winner}</h2>
-          <div style={{ width: '50%' }}>
-            You: <PlayerChoice style={{ width: '100%', height: 'auto' }} />
+        <div>
+          {winner === 'tie' ? (
+            <h2>It's a draw</h2>
+          ) : winner === playerId ? (
+            <h2>You win</h2>
+          ) : (
+            <h2>You lost</h2>
+          )}
+          <div style={{ display: 'flex' }}>
+            <div>
+              <PlayerChoice />
+            </div>
+            <div style={{ transform: 'scaleX(-1)' }}>
+              <AiChoice />
+            </div>
           </div>
-          <div style={{ width: '50%', transform: 'scaleX(-1)' }}>
-            AI: <AiChoice style={{ width: '100%', height: 'auto' }} />
-          </div>
-        </>
+        </div>
       )}
     </div>
   )
