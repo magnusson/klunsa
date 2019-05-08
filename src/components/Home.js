@@ -3,7 +3,7 @@ import Game from './Game'
 import { firebaseApp } from '../base'
 import { getRandomId } from '../utils'
 
-function Home(props) {
+const Home = props => {
   const { playerId } = props
   const [gameId, setGameId] = useState(null)
   const [players, setPlayers] = useState(null)
@@ -43,13 +43,8 @@ function Home(props) {
   }
   return (
     <>
-      <h2>Hi {playerId}</h2>
-      <p>We are now in game {gameId}</p>
-      <p>With players</p>
-      <ul>
-        {players &&
-          Object.keys(players).map((player, i) => <li key={i}>{player}</li>)}
-      </ul>
+      <h2>Waiting for opponent</h2>
+      <p>Send this link to challenge someone: {window.location.href}</p>
     </>
   )
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-function Results(props) {
+const Results = props => {
   const { types, choices, playerId } = props
   const [winner, setWinner] = useState(null)
   const players = Object.keys(choices)
@@ -21,8 +21,8 @@ function Results(props) {
       setWinner('tie')
     }
   }, [])
-  const PlayerChoice = types[choices[playerOne]]
-  const AiChoice = types[choices[playerTwo]]
+  const PlayerOneChoice = types[choices[playerOne]]
+  const PlayerTwpChoice = types[choices[playerTwo]]
   return (
     <div>
       {!winner ? (
@@ -38,11 +38,12 @@ function Results(props) {
           )}
           <div style={{ display: 'flex' }}>
             <div>
-              <PlayerChoice />
+              <PlayerOneChoice />
             </div>
             <div style={{ transform: 'scaleX(-1)' }}>
-              <AiChoice />
+              <PlayerTwpChoice />
             </div>
+            <button type="button">Rematch</button>
           </div>
         </div>
       )}

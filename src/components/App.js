@@ -4,7 +4,7 @@ import Header from './Header'
 import Home from './Home'
 import { getRandomId } from '../utils'
 
-function App() {
+const App = () => {
   const [playerId, setPlayerId] = useState(null)
   useEffect(() => {
     const randomId = getRandomId()

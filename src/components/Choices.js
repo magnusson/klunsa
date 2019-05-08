@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Choices(props) {
+const Choices = props => {
   const { types, handleChoice } = props
   return (
     <>

@@ -6,11 +6,11 @@ import { ReactComponent as Rock } from '../rock.svg'
 import { ReactComponent as Scissor } from '../scissors.svg'
 import { ReactComponent as Paper } from '../paper.svg'
 
-function Game(props) {
+const Game = props => {
   const { gameId, playerId, players } = props
   const types = { rock: Rock, paper: Paper, scissor: Scissor }
   const [choices, setChoices] = useState({})
-  function handleChoice(choice) {
+  const handleChoice = choice => {
     let obj = Object.assign({}, choices)
     obj[playerId] = choice
     setChoices(obj)
