@@ -43,7 +43,6 @@ const Results = props => {
             <div style={{ transform: 'scaleX(-1)' }}>
               <PlayerTwpChoice />
             </div>
-            <button type="button">Rematch</button>
           </div>
         </div>
       )}
