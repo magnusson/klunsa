@@ -5,20 +5,20 @@ import { getRandomId } from '../utils'
 
 const Home = props => {
   const { playerId } = props
-  const [gameId, setGameId] = useState(null)
-  const [players, setPlayers] = useState(null)
-  useEffect(() => {
-    const createGame = window.location.hash ? false : true
-    const id = createGame ? getRandomId() : window.location.hash.substring(1)
-    setGameId(id)
+  let gameId = null
+  if (window.location.hash) {
+    gameId = window.location.hash.substring(1)
+  } else {
+    gameId = getRandomId()
     const gameRef = firebaseApp.database().ref('/')
-    if (createGame) {
-      window.location.hash = id
-      gameRef.child(id).set({
-        done: false
-      })
-    }
-    const playersRef = firebaseApp.database().ref(`${id}/players`)
+    gameRef.child(gameId).set({
+      done: false
+    })
+    window.location.hash = gameId
+  }
+  const [players, setPlayers] = useState({})
+  useEffect(() => {
+    const playersRef = firebaseApp.database().ref(`${gameId}/players`)
     playersRef.once('value').then(snapshot => {
       const snapshotVal = snapshot.val() ? snapshot.val() : {}
       if (Object.keys(snapshotVal).length < 2) {
@@ -31,9 +31,6 @@ const Home = props => {
       if (snapshot.val()) setPlayers(snapshot.val())
     })
   }, [])
-  if (gameId === null || players === null) {
-    return <p>Loading...</p>
-  }
   const playerCount = Object.keys(players).length
   if (players && playerCount === 2 && !(playerId in players)) {
     return <p>Game is full, sorry {playerId}</p>
