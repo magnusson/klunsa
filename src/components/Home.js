@@ -5,19 +5,18 @@ import { getRandomId } from '../utils'
 
 const Home = props => {
   const { playerId } = props
+  const [players, setPlayers] = useState({})
   let gameId = null
-  if (window.location.hash) {
-    gameId = window.location.hash.substring(1)
-  } else {
+  const newGame = () => {
     gameId = getRandomId()
     const gameRef = firebaseApp.database().ref('/')
     gameRef.child(gameId).set({
       done: false
     })
     window.location.hash = gameId
+    syncPlayers()
   }
-  const [players, setPlayers] = useState({})
-  useEffect(() => {
+  const syncPlayers = () => {
     const playersRef = firebaseApp.database().ref(`${gameId}/players`)
     playersRef.once('value').then(snapshot => {
       const snapshotVal = snapshot.val() ? snapshot.val() : {}
@@ -30,10 +29,25 @@ const Home = props => {
     playersRef.on('value', snapshot => {
       if (snapshot.val()) setPlayers(snapshot.val())
     })
+  }
+  if (window.location.hash) {
+    gameId = window.location.hash.substring(1)
+  } else {
+    newGame()
+  }
+  useEffect(() => {
+    syncPlayers()
   }, [])
   const playerCount = Object.keys(players).length
   if (players && playerCount === 2 && !(playerId in players)) {
-    return <p>Game is full, sorry {playerId}</p>
+    return (
+      <>
+        <p>Game is full.</p>
+        <button type="button" onClick={newGame}>
+          Create new game
+        </button>
+      </>
+    )
   }
   if (playerCount === 2) {
     return <Game gameId={gameId} playerId={playerId} players={players} />

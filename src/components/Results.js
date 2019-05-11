@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 const Results = props => {
-  const { types, choices, playerId } = props
+  const { types, choices, playerId, rematch } = props
   const [winner, setWinner] = useState(null)
   const players = Object.keys(choices)
   const playerOne = players[0]
@@ -22,7 +22,7 @@ const Results = props => {
     }
   }, [])
   const PlayerOneChoice = types[choices[playerOne]]
-  const PlayerTwpChoice = types[choices[playerTwo]]
+  const PlayerTwoChoice = types[choices[playerTwo]]
   return (
     <div>
       {!winner ? (
@@ -41,9 +41,12 @@ const Results = props => {
               <PlayerOneChoice />
             </div>
             <div style={{ transform: 'scaleX(-1)' }}>
-              <PlayerTwpChoice />
+              <PlayerTwoChoice />
             </div>
           </div>
+          <button type="button" onClick={rematch}>
+            Rematch
+          </button>
         </div>
       )}
     </div>
