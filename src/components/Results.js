@@ -1,4 +1,29 @@
 import React, { useState, useEffect } from 'react'
+import styled, { createGlobalStyle } from 'styled-components'
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: ${props =>
+      props.winner ? '#77a88d' : '#ff6670'} !important;
+    transition: background-color 2s;
+  }
+`
+
+const Icon = styled.span`
+  width: 50%;
+
+  ${props =>
+    props.side === 'left' &&
+    `
+    transform: rotate(-90deg) scaleY(-1);
+  `}
+
+  ${props =>
+    props.side === 'right' &&
+    `
+    transform: rotate(-90deg);
+  `}
+`
 
 const Results = props => {
   const { types, choices, playerId, rematch } = props
@@ -37,18 +62,19 @@ const Results = props => {
             <h2>You lost</h2>
           )}
           <div style={{ display: 'flex' }}>
-            <div>
+            <Icon side="left">
               <PlayerOneChoice />
-            </div>
-            <div style={{ transform: 'scaleX(-1)' }}>
+            </Icon>
+            <Icon side="right">
               <PlayerTwoChoice />
-            </div>
+            </Icon>
           </div>
           <button type="button" onClick={rematch}>
             Rematch
           </button>
         </div>
       )}
+      <GlobalStyle winner={winner === playerId} />
     </div>
   )
 }

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { firebaseApp } from '../base'
 import Choices from './Choices'
 import Results from './Results'
-import { ReactComponent as Rock } from '../rock.svg'
-import { ReactComponent as Scissor } from '../scissors.svg'
-import { ReactComponent as Paper } from '../paper.svg'
+import { ReactComponent as Rock } from '../270a.svg'
+import { ReactComponent as Paper } from '../270b.svg'
+import { ReactComponent as Scissor } from '../270c.svg'
 
 const Game = props => {
   const { gameId, playerId, players } = props

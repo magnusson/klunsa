@@ -9,10 +9,6 @@ const Home = props => {
   let gameId = null
   const newGame = () => {
     gameId = getRandomId()
-    const gameRef = firebaseApp.database().ref('/')
-    gameRef.child(gameId).set({
-      done: false
-    })
     window.location.hash = gameId
     syncPlayers()
   }
@@ -55,7 +51,16 @@ const Home = props => {
   return (
     <>
       <h2>Waiting for opponent</h2>
-      <p>Send this link to challenge someone: {window.location.href}</p>
+      <p>
+        Send this link to challenge someone:{' '}
+        <a
+          href={window.location.href}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {window.location.href}
+        </a>
+      </p>
     </>
   )
 }

@@ -1,4 +1,11 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const Icon = styled.span`
+  width: calc(100% / 3);
+  display: inline-block;
+  text-align: center;
+`
 
 const Choices = props => {
   const { types, handleChoice } = props
@@ -6,7 +13,11 @@ const Choices = props => {
     <>
       {Object.keys(types).map((choice, i) => {
         const Choice = types[choice]
-        return <Choice key={i} onClick={() => handleChoice(choice)} />
+        return (
+          <Icon key={i}>
+            <Choice onClick={() => handleChoice(choice)} />
+          </Icon>
+        )
       })}
     </>
   )
