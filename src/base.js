@@ -1,4 +1,3 @@
-import Rebase from 're-base'
 import * as firebase from 'firebase/app'
 import 'firebase/database'
 
@@ -12,8 +11,4 @@ const firebaseApp = firebase.initializeApp({
   appId: process.env.REACT_APP_APP_ID
 })
 
-const base = Rebase.createClass(firebaseApp.database())
-
-export { firebaseApp }
-
-export default base
+export default firebaseApp
