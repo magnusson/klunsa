@@ -1,7 +1,7 @@
 # Klunsa ✊✋✌
 
 Rock paper scissors using React and Firebase Real Time Database.  
-Try it out live [here](https://klunsa.magnusson.dev/#adzh0l1yz)
+Try it out live [here](https://klunsa.magnusson.dev/)
 
 ### Prerequisites
 
