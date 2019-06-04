@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { firebaseApp } from '../base'
+import firebaseApp from '../base'
 import Choices from './Choices'
 import Results from './Results'
 import { ReactComponent as Rock } from '../270a.svg'

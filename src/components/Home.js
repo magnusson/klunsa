@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Game from './Game'
-import { firebaseApp } from '../base'
+import firebaseApp from '../base'
 import { getRandomId } from '../utils'
 
 const Home = props => {
