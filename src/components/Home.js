@@ -4,7 +4,7 @@ import firebaseApp from '../base'
 import { getRandomId } from '../utils'
 
 const Home = props => {
-  const { playerId } = props
+  const { playerId, debugData } = props
   const [players, setPlayers] = useState({})
   let gameId = null
   const newGame = () => {
@@ -32,7 +32,11 @@ const Home = props => {
     newGame()
   }
   useEffect(() => {
-    syncPlayers()
+    if (debugData) {
+      setPlayers(debugData)
+    } else {
+      syncPlayers()
+    }
   }, [])
   const playerCount = Object.keys(players).length
   if (players && playerCount === 2 && !(playerId in players)) {
