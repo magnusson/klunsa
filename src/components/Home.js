@@ -1,4 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import {
+  Grid,
+  Typography,
+  Button,
+  CircularProgress,
+  Link
+} from '@material-ui/core'
 import Game from './Game'
 import firebaseApp from '../base'
 import { getRandomId } from '../utils'
@@ -6,6 +13,7 @@ import { getRandomId } from '../utils'
 const Home = props => {
   const { playerId } = props
   const [players, setPlayers] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
   let gameId = null
   const newGame = () => {
     gameId = getRandomId()
@@ -21,6 +29,7 @@ const Home = props => {
         setPlayers(snapshotVal)
         playersRef.set(snapshotVal)
       }
+      setIsLoading(false)
     })
     playersRef.on('value', snapshot => {
       if (snapshot.val()) setPlayers(snapshot.val())
@@ -34,34 +43,50 @@ const Home = props => {
   useEffect(() => {
     syncPlayers()
   }, [])
+  if (isLoading) {
+    return (
+      <Grid container justify="center" alignItems="center">
+        <CircularProgress color="secondary" />
+      </Grid>
+    )
+  }
   const playerCount = Object.keys(players).length
   if (players && playerCount === 2 && !(playerId in players)) {
     return (
-      <>
-        <p>Game is full.</p>
-        <button type="button" onClick={newGame}>
+      <Grid container direction="column" justify="center" alignItems="center">
+        <Typography variant="h5" gutterBottom>
+          Game is full.
+        </Typography>
+        <Button
+          type="button"
+          variant="contained"
+          color="primary"
+          onClick={newGame}
+        >
           Create new game
-        </button>
-      </>
+        </Button>
+      </Grid>
     )
   }
   if (playerCount === 2) {
     return <Game gameId={gameId} playerId={playerId} players={players} />
   }
   return (
-    <>
-      <h2>Waiting for opponent</h2>
-      <p>
+    <Grid container direction="column" justify="center" alignItems="center">
+      <Typography variant="h1" gutterBottom>
+        Waiting for opponent
+      </Typography>
+      <Typography variant="body1">
         Send this link to challenge someone:{' '}
-        <a
+        <Link
           href={window.location.href}
           target="_blank"
           rel="noopener noreferrer"
         >
           {window.location.href}
-        </a>
-      </p>
-    </>
+        </Link>
+      </Typography>
+    </Grid>
   )
 }
 

@@ -1,29 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import styled, { createGlobalStyle } from 'styled-components'
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: ${props =>
-      props.winner ? '#77a88d' : '#ff6670'} !important;
-    transition: background-color 2s;
-  }
-`
-
-const Icon = styled.span`
-  width: 50%;
-
-  ${props =>
-    props.side === 'left' &&
-    `
-    transform: rotate(-90deg) scaleY(-1);
-  `}
-
-  ${props =>
-    props.side === 'right' &&
-    `
-    transform: rotate(-90deg);
-  `}
-`
+import { Typography, Grid, Button, CircularProgress } from '@material-ui/core'
 
 const Results = props => {
   const { types, choices, playerId, rematch } = props
@@ -49,33 +25,46 @@ const Results = props => {
   const PlayerOneChoice = types[choices[playerOne]]
   const PlayerTwoChoice = types[choices[playerTwo]]
   return (
-    <div>
+    <Grid container direction="column" justify="center" alignItems="center">
       {!winner ? (
-        <p>Doing advanced math to find a winner</p>
+        <Grid container justify="center" alignItems="center">
+          <CircularProgress color="secondary" />
+        </Grid>
       ) : (
-        <div>
-          {winner === 'tie' ? (
-            <h2>It's a draw</h2>
-          ) : winner === playerId ? (
-            <h2>You win</h2>
-          ) : (
-            <h2>You lost</h2>
-          )}
-          <div style={{ display: 'flex' }}>
-            <Icon side="left">
-              <PlayerOneChoice />
-            </Icon>
-            <Icon side="right">
-              <PlayerTwoChoice />
-            </Icon>
-          </div>
-          <button type="button" onClick={rematch}>
+        <>
+          <Typography variant="h1">
+            {winner === 'tie'
+              ? 'Draw'
+              : winner === playerId
+              ? 'You win'
+              : 'You lost'}
+          </Typography>
+          <Grid container justify="center" alignItems="center">
+            <Grid item xs={6}>
+              <PlayerOneChoice
+                style={{
+                  width: '100%',
+                  transform: 'rotate(-90deg) scaleY(-1)'
+                }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <PlayerTwoChoice
+                style={{ width: '100%', transform: 'rotate(-90deg)' }}
+              />
+            </Grid>
+          </Grid>
+          <Button
+            type="button"
+            variant="contained"
+            color="primary"
+            onClick={rematch}
+          >
             Rematch
-          </button>
-        </div>
+          </Button>
+        </>
       )}
-      <GlobalStyle winner={winner === playerId} />
-    </div>
+    </Grid>
   )
 }
 

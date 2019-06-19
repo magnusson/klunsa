@@ -1,22 +1,30 @@
 import React from 'react'
-import styled from 'styled-components'
+import { useTheme } from '@material-ui/styles'
+import { Grid, Button, makeStyles } from '@material-ui/core'
 
-const Icon = styled.span`
-  width: calc(100% / 3);
-  display: inline-block;
-  text-align: center;
-`
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: props => props.palette.action.hover
+  }
+})
 
 const Choices = props => {
-  const { types, handleChoice } = props
+  const { types, handleChoice, activeChoice } = props
+  const theme = useTheme()
+  const classes = useStyles(theme)
   return (
     <>
       {Object.keys(types).map((choice, i) => {
         const Choice = types[choice]
         return (
-          <Icon key={i}>
-            <Choice onClick={() => handleChoice(choice)} />
-          </Icon>
+          <Grid item xs={4} key={i}>
+            <Button className={choice === activeChoice ? classes.root : null}>
+              <Choice
+                onClick={() => handleChoice(choice)}
+                style={{ width: '100%' }}
+              />
+            </Button>
+          </Grid>
         )
       })}
     </>

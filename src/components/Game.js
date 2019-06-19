@@ -5,6 +5,7 @@ import Results from './Results'
 import { ReactComponent as Rock } from '../270a.svg'
 import { ReactComponent as Paper } from '../270b.svg'
 import { ReactComponent as Scissor } from '../270c.svg'
+import { Grid } from '@material-ui/core'
 
 const Game = props => {
   const { gameId, playerId, players } = props
@@ -47,9 +48,13 @@ const Game = props => {
     )
   }
   return (
-    <div style={{ display: 'flex' }}>
-      <Choices types={types} handleChoice={handleChoice} />
-    </div>
+    <Grid container justify="center" alignItems="center" spacing={2}>
+      <Choices
+        types={types}
+        handleChoice={handleChoice}
+        activeChoice={choices[playerId]}
+      />
+    </Grid>
   )
 }
 
