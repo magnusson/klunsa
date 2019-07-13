@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Grid,
-  Typography,
-  Button,
-  CircularProgress,
-  Link
-} from '@material-ui/core'
+import { Grid, Typography, Button, Link } from '@material-ui/core'
 import Game from './Game'
+import Loading from './Loading'
 import firebaseApp from '../base'
 import { getRandomId } from '../utils'
 
@@ -44,11 +39,7 @@ const Home = props => {
     syncPlayers()
   }, [])
   if (isLoading) {
-    return (
-      <Grid container justify="center" alignItems="center">
-        <CircularProgress color="secondary" />
-      </Grid>
-    )
+    return <Loading />
   }
   const playerCount = Object.keys(players).length
   if (players && playerCount === 2 && !(playerId in players)) {
@@ -73,11 +64,11 @@ const Home = props => {
   }
   return (
     <Grid container direction="column" justify="center" alignItems="center">
-      <Typography variant="h1" gutterBottom>
-        Waiting for opponent
+      <Typography variant="h2" gutterBottom>
+        Invite friend
       </Typography>
       <Typography variant="body1">
-        Send this link to challenge someone:{' '}
+        Send this link to challenge your friend:{' '}
         <Link
           href={window.location.href}
           target="_blank"

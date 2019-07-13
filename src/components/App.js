@@ -6,9 +6,12 @@ import Home from './Home'
 import { getRandomId } from '../utils'
 import { theme } from '../theme'
 
+import '../styles.css'
+
 const App = () => {
   const playerId = getRandomId()
   const muiTheme = createMuiTheme(theme)
+
   return (
     <ThemeProvider theme={muiTheme}>
       <CssBaseline />

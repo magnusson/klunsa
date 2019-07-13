@@ -1,10 +1,12 @@
 import React from 'react'
-import Grid from '@material-ui/core/Grid'
+import { Grid, Box, Typography } from '@material-ui/core'
 
 const Header = () => {
   return (
-    <Grid container justify="center" alignItems="center" m={8}>
-      <h1>[Insert Logotype Here]</h1>
+    <Grid container justify="center" alignItems="center">
+      <Box m={4}>
+        <Typography variant="h1">Klunsa</Typography>
+      </Box>
     </Grid>
   )
 }
